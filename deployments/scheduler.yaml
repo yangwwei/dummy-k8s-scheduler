@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: scheduler
+  name: scheduler
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: scheduler
+      name: scheduler
+    spec:
+      containers:
+        - name: k8s-scheduler
+          image: cheersyang/k8s-scheduler:0.1.0
+        - name: dummy-scheduler
+          image: cheersyang/dummy-scheduler:0.1.0
+        - name: kubectl
+          image: lachlanevenson/k8s-kubectl:latest
+          args:
+            - "proxy"
